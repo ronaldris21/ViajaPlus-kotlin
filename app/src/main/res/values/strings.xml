@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">ViajaPlus</string>
+    <string name="title_home">ViajaPlus</string>
+    <string name="title_myTrips">Mis Viajes</string>
+    <string name="title_profile">Mi Perfil</string>
+    <string name="title_fragment">Fragmento</string>
+    <string name="title_activity_item_detail_host">ItemDetailHostActivity</string>
+    <string name="title_item_list">Items</string>
+    <string name="title_item_detail">Item Detail</string>
+    <!-- TODO: Remove or change this placeholder text -->
+</resources>
