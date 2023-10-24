@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.viajaplus.R
 import com.example.viajaplus.databinding.FragmentBlankBinding
 import com.example.viajaplus.databinding.FragmentHomeBinding
+import com.example.viajaplus.ui.login.SignUpActivity
 import com.example.viajaplus.ui.views.Setting
 
 class BlankFragment : Fragment() {
@@ -40,9 +41,18 @@ class BlankFragment : Fragment() {
 
         // Accede al botón de manera segura
         binding.button?.setOnClickListener {
+
+            /** NAVEGAR ENTRE PANTALLAS ACTIVITIES **/
             val navController = findNavController()
-            val intent:Intent = Intent(requireActivity(), Setting::class.java)
-            requireActivity().startActivity(intent)
+            val intent:Intent = Intent(requireActivity(), SignUpActivity::class.java)
+
+            /** Si lo haces Así vas a apilar las activities encima de otra **/
+            //requireActivity().startActivity(intent)
+
+            /** Si lo haces así vas a crear una nueva activity independiente **/
+            startActivity(intent)
+
+
         }
 
         return root

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "822864618600",
+    "firebase_url": "https://appcenterpus2.firebaseio.com",
+    "project_id": "appcenterpus2",
+    "storage_bucket": "appcenterpus2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:822864618600:android:6064c0bc4600358db387dd",
+        "android_client_info": {
+          "package_name": "com.example.viajaplus"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "822864618600-eiugttu2i4tshqk13t33mfmcupbjb7ql.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDzfdpi8tZ73FPaQL_7nzMeUbaypS-spnU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "822864618600-eiugttu2i4tshqk13t33mfmcupbjb7ql.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
