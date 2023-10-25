@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <item
+        android:id="@+id/menu_money_sort"
+        android:icon="@drawable/ic_money"
+        android:title="Ordenar por precio"
+        app:showAsAction="ifRoom"
+        />
+    <item
+        android:id="@+id/menu_time_sort"
+        android:title="Ordenar por tiempo"
+        android:icon="@drawable/ic_tiempo"
+        app:showAsAction="ifRoom"
+        />
+</menu>

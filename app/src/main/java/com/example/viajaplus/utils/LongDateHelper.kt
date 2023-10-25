@@ -1,20 +1,21 @@
 package com.example.viajaplus.utils
 
-import java.util.Date
+import java.time.Instant
+import java.time.LocalDateTime
+import java.time.ZoneId
+
 
 class LongDateHelper {
 
     fun longToStringDate(dateInMillis: Long): String {
-        // Convertir el valor de long a Date
-        val date = Date(dateInMillis)
-
-        // Obtener el día, el mes y el año de la fecha
-        val dayOfMonth = date.day
-        val month = date.month + 1
-        val year = date.year
+        val instant = Instant.ofEpochMilli(dateInMillis)
+        val localDateTime = LocalDateTime.ofInstant(instant, ZoneId.systemDefault())
+        val day = localDateTime.dayOfMonth
+        val month = localDateTime.monthValue
+        val year = localDateTime.year
 
         // Crear una cadena con la fecha en el formato deseado
-        val formattedDate = "${dayOfMonth} ${getMonthName(month)} ${year}"
+        val formattedDate = "${day} ${getMonthName(month)} ${year}"
 
         // Retornar la cadena con la fecha
         return formattedDate

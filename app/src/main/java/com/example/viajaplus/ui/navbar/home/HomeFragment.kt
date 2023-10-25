@@ -17,9 +17,12 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.viajaplus.databinding.FragmentHomeBinding
 import com.example.viajaplus.dataservices.RoutesService
+import com.example.viajaplus.dataservices.SingletonData
 import com.example.viajaplus.ui.adapters.WhiteTextSpinnerAdapter
 import com.example.viajaplus.ui.login.SignUpActivity
+import com.example.viajaplus.ui.navbar.home.flows.SelectRouteActivity
 import com.example.viajaplus.utils.LongDateHelper
+import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.MaterialDatePicker
 
 class HomeFragment : Fragment() {
@@ -84,22 +87,27 @@ class HomeFragment : Fragment() {
                     val dateRangePicker =
                     MaterialDatePicker.Builder.dateRangePicker()
                         .setTitleText("Selecciona la fechas de viaje")
+                        .setCalendarConstraints(
+                            CalendarConstraints.Builder()
+                                .setStart(MaterialDatePicker.todayInUtcMilliseconds())
+                                .build()
+                        )
                         .setSelection(
                             Pair(
                                 MaterialDatePicker.thisMonthInUtcMilliseconds(),
                                 MaterialDatePicker.todayInUtcMilliseconds()
                             )
                         )
+
                         .build()
 
                     dateRangePicker.addOnPositiveButtonClickListener { dateRangeSelection ->
-                        // Obtener las fechas de inicio y final del rango seleccionado
-                        //val startDate = dateRangeSelection.first
-                        //val endDate = dateRangeSelection.second
-                        val formatHelper = LongDateHelper()
-                        txtFechas.text = formatHelper.longToStringDate(dateRangeSelection.first) + " -> " + formatHelper.longToStringDate(dateRangeSelection.second)
+                        SingletonData.firstDate = dateRangeSelection.first
+                        SingletonData.secondDate = dateRangeSelection.second
+                        SingletonData.isRoundTrip = true
 
-                        // Hacer algo con las fechas seleccionadas
+                        val formatHelper = LongDateHelper()
+                        txtFechas.text = formatHelper.longToStringDate(SingletonData.firstDate) + " -> " + formatHelper.longToStringDate(SingletonData.secondDate)
                     }
 
 
@@ -110,8 +118,22 @@ class HomeFragment : Fragment() {
                     val datePicker =
                         MaterialDatePicker.Builder.datePicker()
                             .setTitleText("Selecciona la fecha de viaje")
+                            .setCalendarConstraints(
+                                CalendarConstraints.Builder()
+                                    .setStart(MaterialDatePicker.todayInUtcMilliseconds())
+                                    .build()
+                            )
                             .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
                             .build()
+
+                    datePicker.addOnPositiveButtonClickListener { dateSelection ->
+                        SingletonData.firstDate = dateSelection
+                        SingletonData.isRoundTrip = false
+
+                        val formatHelper = LongDateHelper()
+                        txtFechas.text = formatHelper.longToStringDate(SingletonData.firstDate)
+                    }
+
 
                     datePicker.show(this.parentFragmentManager,"Una sola fecha")
                 }
@@ -131,13 +153,13 @@ class HomeFragment : Fragment() {
             //Llamar la nueva activity de los precios
             /** NAVEGAR ENTRE PANTALLAS ACTIVITIES **/
             val navController = findNavController()
-            val intent: Intent = Intent(requireActivity(), SignUpActivity::class.java)
+            val intent: Intent = Intent(requireActivity(), SelectRouteActivity::class.java)
 
             /** Si lo haces Así vas a apilar las activities encima de otra **/
-            //requireActivity().startActivity(intent)
+            requireActivity().startActivity(intent)
 
             /** Si lo haces así vas a crear una nueva activity independiente **/
-            startActivity(intent)
+            //startActivity(intent)
         }
 
         return binding.root
