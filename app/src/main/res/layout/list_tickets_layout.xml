@@ -8,6 +8,18 @@
     android:layout_margin="8dp"
     android:background="@drawable/border"
     android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/dateTravel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:layout_gravity="start"
+        android:textSize="20dp"
+        android:layout_margin="12dp"
+        android:text="Fecha de viaje: 254" />
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -80,13 +92,15 @@
         android:textStyle="bold"
         android:layout_marginBottom="4dp"
         android:textSize="16dp"
-        android:text="Precio de venta es €35" />
+        android:text="Costo €35" />
     <Button
         android:id="@+id/btnComprar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="12dp"
+        android:background="@drawable/border"
         android:layout_marginHorizontal="80dp"
-        android:text="Comprar"
+        android:text="Ver Qr"
+        android:layout_margin="20dp"
         />
 </LinearLayout>

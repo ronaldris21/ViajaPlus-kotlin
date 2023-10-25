@@ -1,15 +1,20 @@
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import com.example.viajaplus.R
-import com.example.viajaplus.dataservices.SingletonData
-import com.example.viajaplus.dataservices.TicketsServiceLocal
+import com.example.viajaplus.services.SingletonData
 import com.example.viajaplus.models.Route
 import com.example.viajaplus.models.Ticket
+import com.example.viajaplus.ui.navbar.home.flows.ConfirmRoutesSelectedActivity
+import com.example.viajaplus.ui.navbar.home.flows.SelectRouteActivity
 import java.util.UUID
 
 class RouteListViewAdapter(private val context: Context, private val routes: List<Route>) : BaseAdapter() {
@@ -64,11 +69,33 @@ class RouteListViewAdapter(private val context: Context, private val routes: Lis
                 price = route.price
             )
 
-            // Agregar el ticket a TicketsServiceLocal
-            TicketsServiceLocal.newTicket(ticket)
+            ///Agrego el ticket al carrito
+            SingletonData.addTicket(ticket)
+
+            if(SingletonData.canIStillAddAnotherTicket())
+            {
+                //Cambio las ciudaddes y vuelo a buscar las ciudades
+
+                val intent = Intent(context, SelectRouteActivity::class.java)
+                intent.putExtra("startCity", SingletonData.endCity)
+                intent.putExtra("endCity",SingletonData.startCity)
+                this@RouteListViewAdapter.context.startActivity(intent)
+            }
+            else
+            {
+
+                val intent = Intent(context, ConfirmRoutesSelectedActivity::class.java)
+                this@RouteListViewAdapter.context.startActivity(intent)
+
+            }
+
 
             // Mostrar un Toast para indicar que se ha comprado el boleto
-            Toast.makeText(context, "Boleto comprado: ${route.originCity} a ${route.destinationCity}", Toast.LENGTH_SHORT).show()
+
+            //TODO: Validar si es round trip que ya ha comprado AMBOS!
+            //TODO: si no es round trip o ya ha comprado los dos boletos mandar a validar que si esos soo los dos tickets que quiere
+
+
         }
 
         return view

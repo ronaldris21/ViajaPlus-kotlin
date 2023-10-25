@@ -8,7 +8,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.viajaplus.databinding.ActivityMainBinding
-import com.example.viajaplus.dataservices.SingletonData
+import com.example.viajaplus.services.SingletonData
 import com.example.viajaplus.models.Ticket
 import com.example.viajaplus.models.User
 import java.time.LocalTime
@@ -33,18 +33,6 @@ class MainActivity : AppCompatActivity() {
             email = "ronald.ris@example.com",
             displayName = "Ronald Ris",
             profilePictureUrl = "https://example.com/profile-picture.jpg"
-        ))
-
-        SingletonData.initTicket( Ticket(
-            ticketId = "1234567890",
-            userId = "1234567890",
-            purchaseDate = System.currentTimeMillis(),
-            travelDate = 1652356800000L,
-            originCity = "Madrid",
-            destinationCity = "Barcelona",
-            departureTime = LocalTime.of(10, 0),
-            arrivalTime = LocalTime.of(12, 0),
-            price = 50.00
         ))
 
         SingletonData.firstDate = System.currentTimeMillis()

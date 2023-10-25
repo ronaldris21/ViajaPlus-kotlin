@@ -4,17 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ListView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.viajaplus.R
 import com.example.viajaplus.databinding.FragmentMyTripsBinding
-import com.example.viajaplus.dataservices.RoutesService
-import com.example.viajaplus.dataservices.SingletonData
-import com.example.viajaplus.dataservices.TicketsServiceLocal
-import com.example.viajaplus.ui.adapters.OldTicketsListViewAdapter
-import com.example.viajaplus.ui.adapters.UpcomingTicketsListViewAdapter
+import com.example.viajaplus.services.TicketsServiceLocal
+import com.example.viajaplus.adapters.TicketsListViewAdapter
 import com.google.android.material.tabs.TabLayout
 
 class MyTripsFragment : Fragment() {
@@ -35,11 +30,6 @@ class MyTripsFragment : Fragment() {
 
         _binding = FragmentMyTripsBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
-        val textView: TextView = binding.textDashboard
-        dashboardViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
 
         val tabLayout: TabLayout = binding.TabLayoutTicketSelector
 
@@ -79,7 +69,7 @@ class MyTripsFragment : Fragment() {
 
         val listView = binding.ListviewUpcomingTickets
 
-        val adapter = UpcomingTicketsListViewAdapter(requireContext(), upcomingTickets)
+        val adapter = TicketsListViewAdapter(requireContext(), upcomingTickets)
         listView.adapter = adapter
     }
 
@@ -89,7 +79,7 @@ class MyTripsFragment : Fragment() {
 
         val listView = binding.ListviewUpcomingTickets
 
-        val adapter = OldTicketsListViewAdapter(requireContext(), oldTickets)
+        val adapter = TicketsListViewAdapter(requireContext(), oldTickets)
         listView.adapter = adapter
     }
 

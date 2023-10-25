@@ -1,4 +1,4 @@
-package com.example.viajaplus.ui.adapters
+package com.example.viajaplus.adapters
 
 import android.content.Context
 import android.view.View

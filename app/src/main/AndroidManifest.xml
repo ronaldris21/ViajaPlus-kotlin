@@ -13,6 +13,12 @@
         android:theme="@style/Theme.ViajaPlus"
         tools:targetApi="31">
         <activity
+            android:name=".ui.navbar.myTrips.flows.TicketsQrActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.navbar.home.flows.ConfirmRoutesSelectedActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.navbar.home.flows.SelectRouteActivity"
             android:exported="false" />
         <activity

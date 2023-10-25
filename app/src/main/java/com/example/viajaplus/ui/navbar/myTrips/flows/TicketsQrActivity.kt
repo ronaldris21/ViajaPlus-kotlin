@@ -1,4 +1,4 @@
-package com.example.viajaplus.ui.login
+package com.example.viajaplus.ui.navbar.myTrips.flows
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -6,7 +6,7 @@ import android.view.Menu
 import android.view.MenuItem
 import com.example.viajaplus.R
 
-class SignUpActivity : AppCompatActivity() {
+class TicketsQrActivity : AppCompatActivity() {
 
     fun closeStuff(){
         finish()
@@ -24,15 +24,11 @@ class SignUpActivity : AppCompatActivity() {
     }
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = "Registrarme"
+        supportActionBar?.title = "Código Qr"
         return true
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_sign_up)
-
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-
+        setContentView(R.layout.activity_tickets_qr)
     }
 }

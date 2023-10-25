@@ -1,11 +1,11 @@
-package com.example.viajaplus.utils
+package com.example.viajaplus.services
 
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
 
 
-class LongDateHelper {
+object DatesHelperConverter {
 
     fun longToStringDate(dateInMillis: Long): String {
         val instant = Instant.ofEpochMilli(dateInMillis)
@@ -21,7 +21,7 @@ class LongDateHelper {
         return formattedDate
     }
 
-    private fun getMonthName(month: Int): String {
+    fun getMonthName(month: Int): String {
         val months = arrayOf("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre")
         return months[month - 1]
     }

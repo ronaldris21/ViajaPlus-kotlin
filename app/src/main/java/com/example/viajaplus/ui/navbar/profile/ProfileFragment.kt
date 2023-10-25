@@ -32,6 +32,18 @@ class ProfileFragment : Fragment() {
         profileViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }
+
+        //TODO: cambiar tema por ejemplo
+        //TODO: Documentaicón 2 puntos
+        // vistas obligatorias 3.5
+        // db 1.5
+        // no errores 1 puntos, valudaciones
+        //Originalidad diseño
+        //Puntos extras
+            //
+        //
+
+
         return root
     }
 
