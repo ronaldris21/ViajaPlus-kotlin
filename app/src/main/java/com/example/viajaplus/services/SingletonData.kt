@@ -28,6 +28,7 @@ object SingletonData {
 
 
 
+    ///LOGIN y Guardar el ID del registrado
     fun saveUserId(context: Context, userId: String) {
         val sharedPreferences: SharedPreferences = context.getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()

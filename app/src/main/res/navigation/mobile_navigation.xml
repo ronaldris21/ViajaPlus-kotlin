@@ -23,9 +23,4 @@
         android:name="com.example.viajaplus.ui.navbar.profile.ProfileFragment"
         android:label="@string/title_profile"
         tools:layout="@layout/fragment_profile" />
-    <fragment
-        android:id="@+id/navigation_fragment"
-        android:name="com.example.viajaplus.ui.BlankFragment"
-        android:label="@string/title_fragment"
-        tools:layout="@layout/fragment_blank" />
 </navigation>

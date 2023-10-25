@@ -32,7 +32,8 @@ class MainActivity : AppCompatActivity() {
             userId = "1234567890",
             email = "ronald.ris@example.com",
             displayName = "Ronald Ris",
-            profilePictureUrl = "https://example.com/profile-picture.jpg"
+            profilePictureUrl = "https://example.com/profile-picture.jpg",
+            password = "xdxdxdxd"
         ))
 
         SingletonData.firstDate = System.currentTimeMillis()
@@ -51,7 +52,7 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigation_home, R.id.navigation_my_trips, R.id.navigation_profile, R.id.navigation_fragment
+                R.id.navigation_home, R.id.navigation_my_trips, R.id.navigation_profile
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
