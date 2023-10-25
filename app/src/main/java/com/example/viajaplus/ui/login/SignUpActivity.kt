@@ -33,6 +33,7 @@ class SignUpActivity : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+        //TODO: MACA
 
     }
 }

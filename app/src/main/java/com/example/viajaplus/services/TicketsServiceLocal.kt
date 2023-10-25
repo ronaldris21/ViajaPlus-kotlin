@@ -75,6 +75,7 @@ object TicketsServiceLocal {
     }
 
     fun getTickets(): List<Ticket> {
+        //TODO: from Firebase
         return tickets.toList()
     }
 }

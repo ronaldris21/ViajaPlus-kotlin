@@ -1,13 +1,18 @@
 package com.example.viajaplus.ui.navbar.profile
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.viajaplus.MainActivity
 import com.example.viajaplus.databinding.FragmentProfileBinding
+import com.example.viajaplus.services.SingletonData
+import com.example.viajaplus.ui.login.LoginActivity
 
 class ProfileFragment : Fragment() {
 
@@ -31,6 +36,17 @@ class ProfileFragment : Fragment() {
         val textView: TextView = binding.textNotifications
         profileViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
+        }
+
+        val btnCloseSesion : Button = binding.button
+        btnCloseSesion.setOnClickListener{
+            SingletonData.removeUserId(requireContext())
+
+            requireActivity().finish()
+
+            val intent = Intent(requireActivity(), LoginActivity::class.java)
+            this@ProfileFragment.startActivity(intent)
+
         }
 
         //TODO: cambiar tema por ejemplo

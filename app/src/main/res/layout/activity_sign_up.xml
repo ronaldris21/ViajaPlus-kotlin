@@ -95,6 +95,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/info"
         android:layout_above="@id/socialicons"
+        android:gravity="center"
         android:text="or sign up with"
         android:layout_centerHorizontal="true"/>
 

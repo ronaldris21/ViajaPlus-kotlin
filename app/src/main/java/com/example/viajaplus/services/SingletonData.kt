@@ -13,6 +13,7 @@ object SingletonData {
 
 
     //VARIABLES
+    public var userId : String? = null
     public var currentUser : User? =null
     public val ticketsShoppingCart = mutableListOf<Ticket>()
 
@@ -35,7 +36,16 @@ object SingletonData {
         editor.putString(USER_ID_KEY, userId)
         editor.apply()
 
-        currentUser?.userId = userId
+        this.userId = userId.toString()
+    }
+    fun removeUserId(context: Context) {
+        val sharedPreferences: SharedPreferences = context.getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.remove(USER_ID_KEY)
+        editor.apply()
+
+        this.userId = null
+
     }
 
     fun retrieveUserId(context: Context): String? {
@@ -48,6 +58,8 @@ object SingletonData {
         currentUser = user
     }
 
+
+    //Gestion Carrito Compras Ticket
     fun addTicket(ticket: Ticket) {
         if(ticketsShoppingCart.count()==0)
         {
