@@ -70,6 +70,7 @@ class LoginActivity : AppCompatActivity() {
                             //val user = auth.currentUser
                             //updateUI(user)
                             SingletonData.saveUserId(this.applicationContext, email)
+
                             //SingletonData.saveUserId(this.applicationContext,username)
                             val intent = Intent(this@LoginActivity, MainActivity::class.java)
                             this@LoginActivity.startActivity(intent)

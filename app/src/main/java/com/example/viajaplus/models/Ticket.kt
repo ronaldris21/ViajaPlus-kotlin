@@ -15,7 +15,4 @@ data class Ticket(
     var arrivalTime: LocalTime,
     var price: Double,
 
-
-
-
 )

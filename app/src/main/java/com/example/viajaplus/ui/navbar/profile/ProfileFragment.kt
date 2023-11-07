@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.viajaplus.MainActivity
@@ -56,6 +57,11 @@ class ProfileFragment : Fragment() {
 
         }
 
+        val btnEditUri : Button = binding.editUriButton
+        btnEditUri.setOnClickListener{
+            //SingletonData.removeUserId(requireContext())
+            //Set image uri¿?
+        }
         //TODO: cambiar tema por ejemplo
         //TODO: Documentaicón 2 puntos
         // vistas obligatorias 3.5
@@ -63,8 +69,40 @@ class ProfileFragment : Fragment() {
         // no errores 1 puntos, valudaciones
         //Originalidad diseño
         //Puntos extras
-            //
-        //
+
+
+
+        // Notification text ese?¿
+        // Tema?
+        // Url -> modificar singleton o usar bbdd
+
+
+
+
+        //Si el usuario existe en firebase, recoje los valores
+        val user = Firebase.auth.currentUser
+        user?.let {
+                // Name, email address, and profile photo Url
+                val name = it.displayName
+                val email = it.email
+                val photoUrl = it.photoUrl
+
+            //Si el usuario tiene la sesión iniciada en la aplicación(Singleton) se mostrarán los valores
+            this.context?.let {
+                if(SingletonData.retrieveUserId(it.applicationContext)!=null){
+                    binding.profileUser.setText(name);
+                    binding.profileEmail.setText(email);
+                    binding.profileImage.setImageURI(photoUrl)
+                }
+            }
+        }?: run {
+            // This block will run if user is null (i.e., there is no authenticated user)
+            Toast.makeText(this.context?.applicationContext ?: null, "El usuario no ha iniciado sesión", Toast.LENGTH_SHORT)
+                .show()
+        }
+
+
+
 
 
         return root
