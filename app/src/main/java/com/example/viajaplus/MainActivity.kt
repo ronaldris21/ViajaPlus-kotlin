@@ -1,6 +1,9 @@
 package com.example.viajaplus
 
+import android.content.ContentValues
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -11,6 +14,8 @@ import com.example.viajaplus.databinding.ActivityMainBinding
 import com.example.viajaplus.services.SingletonData
 import com.example.viajaplus.models.Ticket
 import com.example.viajaplus.models.User
+import com.example.viajaplus.ui.login.LoginActivity
+import com.google.firebase.auth.FirebaseAuth
 import java.time.LocalTime
 
 class MainActivity : AppCompatActivity() {
@@ -26,20 +31,21 @@ class MainActivity : AppCompatActivity() {
 
 
 
-        /////INICIALIZO DATOS DEL SINGLETON
-        //TODO: Revisar INICIO DE SESION AL MOMENTO DE INICIAR LOS DATOS
-        SingletonData.initUser( User(
-            userId = "1234567890",
-            email = "ronald.ris@example.com",
-            displayName = "Ronald Ris",
-            profilePictureUrl = "https://example.com/profile-picture.jpg",
-            password = "xdxdxdxd"
-        ))
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        if (currentUser != null) {
+            // El usuario ha iniciado sesión
+            if(SingletonData.retrieveUserId(this.applicationContext)==null){
+                SingletonData.saveUserId(this.applicationContext,currentUser.uid)
+            }
+            //Log.d(ContentValues.TAG, "ProfilePictureUrl: ${currentUser.uid}")
 
-        SingletonData.firstDate = System.currentTimeMillis()
-        SingletonData.isRoundTrip = false
-
-
+            SingletonData.firstDate = System.currentTimeMillis()
+            SingletonData.isRoundTrip = false
+        }else{
+            val intent = Intent(this.applicationContext, LoginActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
 
 
         binding = ActivityMainBinding.inflate(layoutInflater)

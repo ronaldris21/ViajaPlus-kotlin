@@ -61,6 +61,14 @@ object SingletonData {
         currentUser = user
     }
 
+    fun removeCurrentUser() {
+        currentUser = null
+    }
+
+    fun retrieveUserId(): User? {
+        return currentUser
+    }
+
 
     //Gestion Carrito Compras Ticket
     fun addTicket(ticket: Ticket) {

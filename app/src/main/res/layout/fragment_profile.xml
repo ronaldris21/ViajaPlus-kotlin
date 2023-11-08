@@ -17,7 +17,7 @@
         android:background="#30ffffff"
         android:drawableLeft="@drawable/ic_baseline_email_24"
         android:drawablePadding="20dp"
-        android:editable="false"
+        android:editable="true"
         android:hint="URL Profile image"
         android:inputType="text"
         android:padding="10dp"
@@ -38,7 +38,7 @@
         android:background="#30ffffff"
         android:drawableLeft="@drawable/ic_baseline_email_24"
         android:drawablePadding="20dp"
-        android:editable="false"
+        android:editable="true"
         android:padding="10dp"
         android:text="Email:"
         android:textColor="@color/white"
@@ -57,7 +57,7 @@
         android:background="#30ffffff"
         android:drawableLeft="@drawable/ic_baseline_person_outline_24"
         android:drawablePadding="20dp"
-        android:editable="false"
+        android:editable="true"
         android:inputType="text"
         android:padding="10dp"
         android:text="Usuario:"
@@ -91,6 +91,7 @@
         android:layout_marginEnd="8dp"
         android:textAlignment="center"
         android:textSize="20sp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -136,16 +137,5 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.228"
         tools:src="@tools:sample/avatars" />
-
-    <EditText
-        android:id="@+id/editTextText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:editable="true"
-        android:ems="10"
-        android:inputType="text"
-        android:text="Tema?"
-        tools:layout_editor_absoluteX="100dp"
-        tools:layout_editor_absoluteY="629dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

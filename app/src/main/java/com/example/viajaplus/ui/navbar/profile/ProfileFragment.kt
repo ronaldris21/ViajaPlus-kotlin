@@ -1,7 +1,9 @@
 package com.example.viajaplus.ui.navbar.profile
 
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,12 +12,16 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
 import com.example.viajaplus.MainActivity
 import com.example.viajaplus.databinding.FragmentProfileBinding
+import com.example.viajaplus.models.User
 import com.example.viajaplus.services.SingletonData
 import com.example.viajaplus.ui.login.LoginActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
+
 import com.google.firebase.ktx.Firebase
 
 class ProfileFragment : Fragment() {
@@ -40,6 +46,7 @@ class ProfileFragment : Fragment() {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+        //??
         val textView: TextView = binding.textNotifications
         profileViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
@@ -49,18 +56,12 @@ class ProfileFragment : Fragment() {
         btnCloseSesion.setOnClickListener{
             auth.signOut()
             SingletonData.removeUserId(requireContext())
+            SingletonData.removeCurrentUser()
 
 
             requireActivity().finish()
             val intent = Intent(requireActivity(), LoginActivity::class.java)
             this@ProfileFragment.startActivity(intent)
-
-        }
-
-        val btnEditUri : Button = binding.editUriButton
-        btnEditUri.setOnClickListener{
-            //SingletonData.removeUserId(requireContext())
-            //Set image uri¿?
         }
         //TODO: cambiar tema por ejemplo
         //TODO: Documentaicón 2 puntos
@@ -74,57 +75,109 @@ class ProfileFragment : Fragment() {
 
         // Notification text ese?¿
         // Tema?
-        // Url -> modificar singleton o usar bbdd
+        // Url
+        updateView()
 
 
+        val btnEditUri : Button = binding.editUriButton
+        btnEditUri.setOnClickListener {
+            if (binding.profileUri.text.toString().equals("null")) {
+                Toast.makeText(this.context, "Introduce un valor", Toast.LENGTH_SHORT).show()
+            } else {
+                //Modify URL data in bbdd
+                val db = Firebase.firestore
 
+                val userId = Firebase.auth.uid
+                val url = binding.profileUri.text.toString()
 
-        //Si el usuario existe en firebase, recoje los valores
-        val user = Firebase.auth.currentUser
-        user?.let {
-                // Name, email address, and profile photo Url
-                val name = it.displayName
-                val email = it.email
-                val photoUrl = it.photoUrl
+                val userRef = db.collection("User").whereEqualTo("userId", userId)
 
-            //Si el usuario tiene la sesión iniciada en la aplicación(Singleton) se mostrarán los valores
-            this.context?.let {
-                if(SingletonData.retrieveUserId(it.applicationContext)!=null){
-                    binding.profileUser.setText(name);
-                    binding.profileEmail.setText(email);
-                    binding.profileImage.setImageURI(photoUrl)
+                userRef.get().addOnSuccessListener { documents ->
+                    for (document in documents) {
+                        db.collection("User").document(document.id)
+                            .update("profilePictureUrl", url)
+                            .addOnSuccessListener {
+                                Log.d(TAG, "Documento actualizado con éxito!")
+                                Toast.makeText(
+                                    this.context,
+                                    "Cuenta actualizada con exito",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                updateView()
+                            }
+                            .addOnFailureListener { e ->
+                                Log.w(TAG, "Error al actualizar el documento", e)
+                                Toast.makeText(
+                                    this.context,
+                                    "Error al actualizar la cuenta",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                    }
                 }
             }
-        }?: run {
-            // This block will run if user is null (i.e., there is no authenticated user)
-            Toast.makeText(this.context?.applicationContext ?: null, "El usuario no ha iniciado sesión", Toast.LENGTH_SHORT)
-                .show()
         }
-
-
-
-
 
         return root
     }
 
-    /*
-    *  val user = Firebase.auth.currentUser
-            user?.let {
-                // Name, email address, and profile photo Url
-                val name = it.displayName
-                val email = it.email
-                val photoUrl = it.photoUrl
+    fun updateView() {
+        // Obtén la instancia de Firestore
+        val db = Firebase.firestore
+        Log.d(TAG, "WORKS")
 
-                // Check if user's email is verified
-                val emailVerified = it.isEmailVerified
+        // Obtén el ID del usuario actual
+        val userf = Firebase.auth.currentUser
+        val userId = userf?.uid
+        if (userf != null) {
+            Log.d(TAG, "WORKS")
+            // Accede al documento del usuario en Firestore
+            val docRef = db.collection("Users").whereEqualTo("userId", userId.toString())
 
-                // The user's ID, unique to the Firebase project. Do NOT use this value to
-                // authenticate with your backend server, if you have one. Use
-                // FirebaseUser.getIdToken() instead.
-                val uid = it.uid
-            }
-    * */
+            docRef.get().addOnSuccessListener { documents ->
+                    for (document in documents) {
+                        Log.d(TAG, "NOT WORKING")
+                        // Crea una instancia de User con los datos del documento
+                        val user = User(
+                            userId = userId.toString(),
+                            email = document.getString("email").toString(),
+                            password = document.getString("password").toString(),
+                            displayName = document.getString("displayName").toString(),
+                            profilePictureUrl = document.getString("profilePictureUrl").toString()
+                        )
+
+                        Log.d(TAG, "Id: ${user.userId}")
+                        Log.d(TAG, "Password: ${user.password}")
+                        Log.d(TAG, "DisplayName: ${user.displayName}")
+                        Log.d(TAG, "ProfilePictureUrl: ${document.getString("profilePictureUrl")}")
+
+
+                        binding.profileUser.setText(user.displayName)
+                        binding.profileEmail.setText(user.email)
+                        binding.profileUri.setText(user.profilePictureUrl)
+                        //Editar la foto
+                        if(!user?.profilePictureUrl.equals("null")){
+                            Glide.with(this).load(user.profilePictureUrl) .into(binding.profileImage)
+                        }else{
+                            Toast.makeText(this.context, "Importa una foto!", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }.addOnFailureListener { exception ->
+                    Log.d(TAG, "FAILED")
+                    Log.d(TAG, "get failed with ", exception)
+                }
+        } else {
+            // No hay usuario autenticado
+            Toast.makeText(this.context, "Cuenta no iniciada", Toast.LENGTH_SHORT).show()
+            // Redirige al usuario a la actividad de inicio de sesión
+            val intent = Intent(this.context, LoginActivity::class.java)
+            startActivity(intent)
+        }
+
+        Log.d(TAG, "WORKS -- ${userId}")
+    }
+
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
