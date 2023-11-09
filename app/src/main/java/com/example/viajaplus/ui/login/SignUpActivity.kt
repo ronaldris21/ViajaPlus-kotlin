@@ -51,9 +51,6 @@ class SignUpActivity : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        //TODO: MACA
-        ////Logica Vista
-
         // Initialize Firebase Auth
         auth = Firebase.auth
         // Firebase db

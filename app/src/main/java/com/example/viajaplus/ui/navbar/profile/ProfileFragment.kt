@@ -4,6 +4,7 @@ import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -73,16 +74,17 @@ class ProfileFragment : Fragment() {
 
 
 
-        // Notification text ese?¿
+        // TODO: Notification text ese?¿
         // Tema?
-        // Url
         updateView()
 
 
         val btnEditUri : Button = binding.editUriButton
         btnEditUri.setOnClickListener {
-            if (binding.profileUri.text.toString().equals("null")) {
-                Toast.makeText(this.context, "Introduce un valor", Toast.LENGTH_SHORT).show()
+            val url = binding.profileUri.text.toString()
+            val urlPattern = Patterns.WEB_URL
+            if (!urlPattern.matcher(url).matches()) {
+                Toast.makeText(this.context, "Introduce una URL válida", Toast.LENGTH_SHORT).show()
             } else {
                 //Modify URL data in bbdd
                 val db = Firebase.firestore
@@ -90,11 +92,11 @@ class ProfileFragment : Fragment() {
                 val userId = Firebase.auth.uid
                 val url = binding.profileUri.text.toString()
 
-                val userRef = db.collection("User").whereEqualTo("userId", userId)
+                val userRef = db.collection("Users").whereEqualTo("userId", userId)
 
                 userRef.get().addOnSuccessListener { documents ->
                     for (document in documents) {
-                        db.collection("User").document(document.id)
+                        db.collection("Users").document(document.id)
                             .update("profilePictureUrl", url)
                             .addOnSuccessListener {
                                 Log.d(TAG, "Documento actualizado con éxito!")
@@ -124,19 +126,16 @@ class ProfileFragment : Fragment() {
     fun updateView() {
         // Obtén la instancia de Firestore
         val db = Firebase.firestore
-        Log.d(TAG, "WORKS")
 
         // Obtén el ID del usuario actual
         val userf = Firebase.auth.currentUser
         val userId = userf?.uid
         if (userf != null) {
-            Log.d(TAG, "WORKS")
             // Accede al documento del usuario en Firestore
             val docRef = db.collection("Users").whereEqualTo("userId", userId.toString())
 
             docRef.get().addOnSuccessListener { documents ->
                     for (document in documents) {
-                        Log.d(TAG, "NOT WORKING")
                         // Crea una instancia de User con los datos del documento
                         val user = User(
                             userId = userId.toString(),
@@ -146,20 +145,22 @@ class ProfileFragment : Fragment() {
                             profilePictureUrl = document.getString("profilePictureUrl").toString()
                         )
 
-                        Log.d(TAG, "Id: ${user.userId}")
-                        Log.d(TAG, "Password: ${user.password}")
-                        Log.d(TAG, "DisplayName: ${user.displayName}")
-                        Log.d(TAG, "ProfilePictureUrl: ${document.getString("profilePictureUrl")}")
-
-
                         binding.profileUser.setText(user.displayName)
                         binding.profileEmail.setText(user.email)
                         binding.profileUri.setText(user.profilePictureUrl)
+
+                        val ancho = binding.profileImage.width
+                        val alto = binding.profileImage.height
+
                         //Editar la foto
-                        if(!user?.profilePictureUrl.equals("null")){
-                            Glide.with(this).load(user.profilePictureUrl) .into(binding.profileImage)
-                        }else{
+                        val urlPattern = Patterns.WEB_URL
+                        if (urlPattern.matcher(user?.profilePictureUrl).matches()) {
+                            Glide.with(this).load(user.profilePictureUrl).override(ancho, alto).into(binding.profileImage)
+                        } else{
+                            //TODO: Establece una imagen por defecto
                             Toast.makeText(this.context, "Importa una foto!", Toast.LENGTH_SHORT).show()
+                            val defaultImage = "https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+                            Glide.with(this).load(defaultImage).override(ancho, alto).into(binding.profileImage)
                         }
                     }
                 }.addOnFailureListener { exception ->

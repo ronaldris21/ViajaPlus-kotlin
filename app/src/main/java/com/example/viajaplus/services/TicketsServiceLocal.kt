@@ -1,6 +1,12 @@
 package com.example.viajaplus.services
 
+import android.content.ContentValues
+import android.util.Log
+import android.widget.Toast
 import com.example.viajaplus.models.Ticket
+import com.example.viajaplus.models.User
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import java.time.LocalTime
 import java.util.UUID
 
@@ -76,6 +82,34 @@ object TicketsServiceLocal {
 
     fun getTickets(): List<Ticket> {
         //TODO: from Firebase
+        val db = Firebase.firestore
+        val ltickets = mutableListOf<Ticket>()
+
+        db.collection("Tickets")
+            .get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    Log.d(ContentValues.TAG, "${document.id} => ${document.data}")
+                    val ticket = Ticket(
+                        //TODO: Campos a rellenar del Ticket
+                        UUID.randomUUID().toString(),
+                        "userID4",
+                        System.currentTimeMillis() + 172800000, // Otra fecha posterior a la actual
+                        System.currentTimeMillis() + 180000000, // Otra fecha posterior
+                        "CityG",
+                        "CityH",
+                        LocalTime.of(16, 0),
+                        LocalTime.of(18, 0),
+                        40.0
+                    )
+                    ltickets.add(ticket)
+                    //Log.d(ContentValues.TAG, "Email: ${user.userId}")
+
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.d(ContentValues.TAG, "get failed with ", exception)
+            }
         return tickets.toList()
     }
 }

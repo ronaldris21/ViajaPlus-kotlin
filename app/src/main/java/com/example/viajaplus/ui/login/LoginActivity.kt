@@ -41,18 +41,7 @@ class LoginActivity : AppCompatActivity() {
         val btnLogin: Button = findViewById(R.id.btnLogin)
         val btnSignup: Button = findViewById(R.id.btnSignUp)
 
-        /*
-        btnLogin.setOnClickListener {
-            //TODO: MACA login con Firebase √
-            ///Login con usuario - validaciones
-            //TODO: asignar datos del user al SingletonData.currentUser √
-
-            ///Si login Succefull then this
-            val intent = Intent(this@LoginActivity, MainActivity::class.java)
-            this@LoginActivity.startActivity(intent)
-            finish()
-        }
-*/
+        //Lógica Firebase
         auth = Firebase.auth
         val emailEditText: EditText = findViewById(R.id.email)
         val passwordEditText: EditText = findViewById(R.id.password)
@@ -89,12 +78,6 @@ class LoginActivity : AppCompatActivity() {
                                         )
                                         SingletonData.initUser(user)
                                         SingletonData.saveUserId(this.applicationContext, user.userId)
-                                        ///
-                                        Log.d(TAG, "Email: ${user.userId}")
-                                        Log.d(TAG, "Password: ${user.password}")
-                                        Log.d(TAG, "DisplayName: ${user.displayName}")
-                                        Log.d(TAG, "ProfilePictureUrl: ${user.profilePictureUrl}")
-                                        //
                                     }
                                 }
                                 .addOnFailureListener { exception ->
@@ -102,7 +85,6 @@ class LoginActivity : AppCompatActivity() {
                                     Toast.makeText(this, "Error al recibir los datos", Toast.LENGTH_SHORT).show()
                                 }
 
-                            //SingletonData.saveUserId(this.applicationContext,username)
                             val intent = Intent(this@LoginActivity, MainActivity::class.java)
                             this@LoginActivity.startActivity(intent)
                             finish()
