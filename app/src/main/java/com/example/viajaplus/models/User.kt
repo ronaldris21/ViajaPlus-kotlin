@@ -5,5 +5,5 @@ data class User(
     var email: String,
     var password:String,
     var displayName: String,
-    var profilePictureUrl: String?
+    var profilePictureUrl: String?,
 )

@@ -17,6 +17,9 @@ object SingletonData {
     public var currentUser : User? =null
     public val ticketsShoppingCart = mutableListOf<Ticket>()
 
+    //PROVEEDOR DE FIREBASE
+    public var provider : String? = null
+
     //Fechas
     public var isRoundTrip: Boolean = false
     public var firstDate: Long = 0
@@ -56,6 +59,14 @@ object SingletonData {
 
     fun initUser(user: User) {
         currentUser = user
+    }
+
+    fun removeCurrentUser() {
+        currentUser = null
+    }
+
+    fun retrieveUserId(): User? {
+        return currentUser
     }
 
 
