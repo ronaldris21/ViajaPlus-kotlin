@@ -7,8 +7,10 @@ import com.example.viajaplus.models.User
 
 object SingletonData {
     ///CONSTANTES
-    private const val PREFERENCES_NAME = "MyAppPreferences"
-    private const val USER_ID_KEY = "userId"
+    const val PREFERENCES_NAME = "MyAppPreferences"
+    const val USER_ID_KEY = "userId"
+    const val APP_THEME = "APP_THEME"
+
 
 
 

@@ -10,5 +10,14 @@
 
 
 
+    <color name="primary_dark">#3135a8</color>
+    <color name="primary_dark_variant">#5720a8</color>
+    <color name="on_primary_dark">#FFFFFF</color>
+    <color name="secondary_dark">#464cf0</color>
+    <color name="secondary_dark_variant">#3135a8</color>
+    <color name="on_secondary_dark">#FFFFFF</color>
+    <color name="background_dark">#000000</color>
+    <color name="surface_dark">#121212</color>
+    <color name="on_surface_dark">#FFFFFF</color>
 
 </resources>

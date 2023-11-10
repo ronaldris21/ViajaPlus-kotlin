@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
-    android:background="@drawable/background"
+    android:background="@drawable/backgroundImage"
     tools:context=".ui.login.LoginActivity">
 
     <TextView

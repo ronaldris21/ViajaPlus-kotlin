@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -14,8 +15,10 @@ import com.example.viajaplus.databinding.ActivityMainBinding
 import com.example.viajaplus.services.SingletonData
 import com.example.viajaplus.models.Ticket
 import com.example.viajaplus.models.User
+import com.example.viajaplus.services.SharedPreferenceService
 import com.example.viajaplus.ui.login.LoginActivity
 import com.google.firebase.auth.FirebaseAuth
+import org.checkerframework.common.returnsreceiver.qual.This
 import java.time.LocalTime
 
 class MainActivity : AppCompatActivity() {
@@ -26,6 +29,17 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
 
+        ///INICIAR MODO OSCURO/CLARO
+        val sharedPreferenceService = SharedPreferenceService(this@MainActivity)
+        val isCheked = sharedPreferenceService.getboolean(SingletonData.APP_THEME)
+        if (isCheked)
+        {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        }
+        else
+        {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        }
 
         supportActionBar?.hide() // OCULTAR BARRA DE NAVEGACION!!!
 
