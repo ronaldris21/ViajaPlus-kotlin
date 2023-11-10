@@ -7,8 +7,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/menu_money_sort"
         android:icon="@drawable/ic_money"
         android:title="Ordenar por precio"
-        app:showAsAction="ifRoom"
-        />
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/menu_time_sort"
         android:title="Ordenar por tiempo"
