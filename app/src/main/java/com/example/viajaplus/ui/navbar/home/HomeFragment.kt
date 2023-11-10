@@ -12,6 +12,7 @@ import android.widget.Button
 import android.widget.CheckBox
 import android.widget.Spinner
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.util.Pair
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -23,6 +24,7 @@ import com.example.viajaplus.adapters.WhiteTextSpinnerAdapter
 import com.example.viajaplus.ui.navbar.home.flows.SelectRouteActivity
 import com.example.viajaplus.services.DatesHelperConverter
 import com.google.android.material.datepicker.CalendarConstraints
+import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
 import java.time.LocalDate
 
@@ -109,6 +111,7 @@ class HomeFragment : Fragment() {
                         .setCalendarConstraints(
                             CalendarConstraints.Builder()
                                 .setStart(MaterialDatePicker.todayInUtcMilliseconds())
+                                .setValidator(DateValidatorPointForward.from(DatesHelperConverter.getTodayDateLongType()))
                                 .build()
                         )
                         .setSelection(
@@ -139,6 +142,7 @@ class HomeFragment : Fragment() {
                             .setCalendarConstraints(
                                 CalendarConstraints.Builder()
                                     .setStart(MaterialDatePicker.todayInUtcMilliseconds())
+                                    .setValidator(DateValidatorPointForward.from(DatesHelperConverter.getTodayDateLongType()))
                                     .build()
                             )
                             .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
@@ -160,34 +164,38 @@ class HomeFragment : Fragment() {
 
         ///BOTON DE BUSCAR BUSES
         val btnSearch: Button = _binding!!.btnBuscarViajes
-
-        btnSearch.setOnClickListener{
-            //TODO: ME QUEDE AQUI! Has esto y vete a otra vista luego
-            //Valida si los datos están bien
-
+        btnSearch.setOnClickListener {
             //Guardar datos en el singleton
-            SingletonData.isRoundTrip =  checkBoxRoundTrip.isChecked
+            SingletonData.isRoundTrip = checkBoxRoundTrip.isChecked
             SingletonData.startCity = spinnerStart.selectedItem.toString()
             SingletonData.endCity = spinnerEnd.selectedItem.toString()
 
-            Log.e("CANT_TICKETS HOME", SingletonData.ticketsShoppingCart.size.toString())
 
+            var validRoundTrip = SingletonData.isRoundTrip && (SingletonData.firstDate >= DatesHelperConverter.getTodayDateLongType()  && SingletonData.secondDate >= DatesHelperConverter.getTodayDateLongType())
+            var validOneWayTrip = !SingletonData.isRoundTrip && (SingletonData.firstDate >= DatesHelperConverter.getTodayDateLongType())
+            //valida antes de ir a la siguiente clase
+            if (validRoundTrip || validOneWayTrip) {
 
-            //Llamar la nueva activity de los precios
-            /** NAVEGAR ENTRE PANTALLAS ACTIVITIES **/
-            val navController = findNavController()
-            Log.e("CONTEXT    HOME", this@HomeFragment.context.toString())
-            val intent: Intent = Intent(this@HomeFragment.context, SelectRouteActivity::class.java)
-            intent.putExtra("startCity", SingletonData.startCity)
-            intent.putExtra("endCity", SingletonData.endCity)
-            intent.putExtra("dateShow",DatesHelperConverter.longToStringDate(SingletonData.firstDate))
+                //Llamar la nueva activity de los precios
+                /** NAVEGAR ENTRE PANTALLAS ACTIVITIES **/
+                val navController = findNavController()
+                Log.e("CONTEXT    HOME", this@HomeFragment.context.toString())
+                val intent: Intent = Intent(this@HomeFragment.context, SelectRouteActivity::class.java)
+                intent.putExtra("startCity", SingletonData.startCity)
+                intent.putExtra("endCity", SingletonData.endCity)
+                intent.putExtra("dateShow", DatesHelperConverter.longToStringDate(SingletonData.firstDate))
 
-            /** Si lo haces Así vas a apilar las activities encima de otra **/
-            startActivity(intent)
+                /** Si lo haces Así vas a apilar las activities encima de otra **/
+                startActivity(intent)
 
-            /** Si lo haces así vas a crear una nueva activity independiente **/
-            //startActivity(intent)
+            }
+            else
+            {
+                Toast.makeText(requireContext(), "Por favor, elija fechas válidas", Toast.LENGTH_SHORT).show()
+
+            }
         }
+
 
         return binding.root
     }
