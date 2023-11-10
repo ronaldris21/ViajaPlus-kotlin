@@ -13,6 +13,8 @@
         android:id="@+id/txtFechaViaje"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:textSize="20sp"
         android:text="RUTAS DE LISTIVES" />
 
     <ListView

@@ -18,6 +18,7 @@ import android.app.Activity
 import android.app.ActivityManager
 import android.content.Context
 import android.content.Intent
+import android.widget.TextView
 import com.example.viajaplus.MainActivity
 
 class ConfirmRoutesSelectedActivity : AppCompatActivity() {
@@ -49,6 +50,8 @@ class ConfirmRoutesSelectedActivity : AppCompatActivity() {
         setContentView(R.layout.activity_confirm_routes_selected)
 
 
+        val txtPrice = findViewById<TextView>(R.id.txtPricing)
+        txtPrice.text = "Precio total: € " + String.format("%.2f", SingletonData.ticketsShoppingCart.sumOf { it.price })
 
         val listView = findViewById<ListView>(R.id.ListviewTicketsShoppingCart)
         val adapter = TicketsListViewAdapter(this, SingletonData.ticketsShoppingCart)

@@ -15,11 +15,14 @@
         android:orientation="vertical"
         >
         <TextView
-            android:id="@+id/textView7"
+            android:id="@+id/txtPricing"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Total" />
+            android:layout_margin="20dp"
+            android:textSize="20sp"
+            android:text="RUTAS DE LISTIVES" />
     </LinearLayout>
+
 
     <ListView
         android:id="@+id/ListviewTicketsShoppingCart"
@@ -31,10 +34,11 @@
         android:id="@+id/btnComprar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="12dp"
+        android:textSize="20sp"
         android:gravity="center"
         android:background="@drawable/border"
         android:layout_marginHorizontal="80dp"
+        android:layout_marginVertical="20dp"
         android:text="Confirmar Compra"
         />
 
