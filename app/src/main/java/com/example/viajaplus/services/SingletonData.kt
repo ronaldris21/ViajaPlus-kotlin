@@ -53,21 +53,21 @@ object SingletonData {
 
     fun retrieveUserId(context: Context): String? {
         val sharedPreferences: SharedPreferences = context.getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE)
-        return sharedPreferences.getString(USER_ID_KEY, null)
+        this.userId = sharedPreferences.getString(USER_ID_KEY, null)
+        return this.userId
     }
 
 
     fun initUser(user: User) {
         currentUser = user
+        userId = user.userId
     }
 
     fun removeCurrentUser() {
         currentUser = null
+        userId = null
     }
 
-    fun retrieveUserId(): User? {
-        return currentUser
-    }
 
 
     //Gestion Carrito Compras Ticket

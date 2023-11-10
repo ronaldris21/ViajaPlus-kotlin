@@ -1,6 +1,7 @@
 package com.example.viajaplus.services
 
 import java.time.Instant
+import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.ZoneId
 
@@ -19,6 +20,12 @@ object DatesHelperConverter {
 
         // Retornar la cadena con la fecha
         return formattedDate
+    }
+    fun getTodayDateLongType(): Long {
+        val currentDate = LocalDate.now()
+        val instant = currentDate.atStartOfDay(ZoneId.systemDefault()).toInstant()
+        val currentMillis = instant.toEpochMilli()
+        return currentMillis
     }
 
     fun getMonthName(month: Int): String {

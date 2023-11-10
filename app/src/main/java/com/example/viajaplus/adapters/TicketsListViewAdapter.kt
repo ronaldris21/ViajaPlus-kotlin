@@ -49,7 +49,7 @@ class TicketsListViewAdapter(private val context: Context, private val routes: L
         holder.endCityTextView.text = ticket.destinationCity
         holder.endHourTextView.text = ticket.arrivalTime.toString()
         holder.priceTextView.text = "Precio de venta es €" + ticket.price.toString()
-        holder.txtFecha.text = "Fecha de viaje: "+ DatesHelperConverter.longToStringDate(ticket.purchaseDate)
+        holder.txtFecha.text = "Fecha de viaje: "+ DatesHelperConverter.longToStringDate(ticket.travelDate)
 
         holder.btnVerQr.setOnClickListener {
 

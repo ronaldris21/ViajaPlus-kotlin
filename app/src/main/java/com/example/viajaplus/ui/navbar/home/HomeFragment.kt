@@ -24,6 +24,7 @@ import com.example.viajaplus.ui.navbar.home.flows.SelectRouteActivity
 import com.example.viajaplus.services.DatesHelperConverter
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.MaterialDatePicker
+import java.time.LocalDate
 
 class HomeFragment : Fragment() {
 
@@ -34,6 +35,11 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
 
 
+
+    fun updateDateText()
+    {
+
+    }
 
 
 
@@ -84,6 +90,11 @@ class HomeFragment : Fragment() {
             val btnDates : Button = _binding!!.btnDates
             val checkBoxRoundTrip : CheckBox = _binding!!.checkBoxRoundTrip
             val txtFechas : TextView = _binding!!.txtFechasSeleccionadas
+
+            ///Inicializo la primer fecha
+            SingletonData.isRoundTrip = false
+            SingletonData.firstDate = DatesHelperConverter.getTodayDateLongType()  // Asigna la fecha actual a firstDate
+            txtFechas.text = DatesHelperConverter.longToStringDate(SingletonData.firstDate)
 
 
 
@@ -169,6 +180,7 @@ class HomeFragment : Fragment() {
             val intent: Intent = Intent(this@HomeFragment.context, SelectRouteActivity::class.java)
             intent.putExtra("startCity", SingletonData.startCity)
             intent.putExtra("endCity", SingletonData.endCity)
+            intent.putExtra("dateShow",DatesHelperConverter.longToStringDate(SingletonData.firstDate))
 
             /** Si lo haces Así vas a apilar las activities encima de otra **/
             startActivity(intent)

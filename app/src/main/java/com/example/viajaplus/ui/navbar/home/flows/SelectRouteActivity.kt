@@ -6,13 +6,19 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Button
 import android.widget.ListView
+import android.widget.TextView
 import android.widget.Toast
 import com.example.viajaplus.R
+import com.example.viajaplus.models.Route
+import com.example.viajaplus.services.DatesHelperConverter
 import com.example.viajaplus.services.RoutesService
 import com.example.viajaplus.services.SingletonData
 
 class SelectRouteActivity : AppCompatActivity() {
+
+    private var desiredCities: List<Route> = emptyList()
 
     private var startCity : String? = ""
     private var endCity : String? = ""
@@ -35,9 +41,20 @@ class SelectRouteActivity : AppCompatActivity() {
         when (item.itemId) {
             R.id.menu_money_sort ->{
                 showToast("Ordenando por precios")
+
+                var listView = findViewById<ListView>(R.id.routes_listview)
+                var newOrderedRoutes = desiredCities.sortedWith(compareBy<Route> { it.price }.thenBy { it.arrivalTime })
+
+                val adapter = RouteListViewAdapter(this@SelectRouteActivity, newOrderedRoutes)
+                listView.adapter = adapter
             }
             R.id.menu_time_sort -> {
                 showToast("Ordenando por tiempos")
+                var listView = findViewById<ListView>(R.id.routes_listview)
+                var newOrderedRoutes = desiredCities.sortedWith(compareBy<Route> { it.arrivalTime }.thenByDescending { it.price })
+
+                val adapter = RouteListViewAdapter(this@SelectRouteActivity, newOrderedRoutes)
+                listView.adapter = adapter
             }
             android.R.id.home ->
             {
@@ -70,14 +87,23 @@ class SelectRouteActivity : AppCompatActivity() {
         if (intent.hasExtra("endCity"))
             endCity = intent.getStringExtra("endCity")
 
+        if (intent.hasExtra("dateShow"))
+        {
+            var dateShow = intent.getStringExtra("dateShow")
+            val txtFechaViaje :TextView = findViewById(R.id.txtFechaViaje)
+            txtFechaViaje.text = dateShow
+        }
+
+
 
 
 
         val routes = RoutesService.getRoutes() // Obtén la lista de rutas desde tu servicio
-        val listView = findViewById<ListView>(R.id.routes_listview)
+        var listView = findViewById<ListView>(R.id.routes_listview)
 
+        R.id.menu_money_sort
 
-        val desiredCities = routes.filter {
+        desiredCities = routes.filter {
                     it.originCity.equals(startCity)
                     &&
                     it.destinationCity.equals(endCity)
@@ -92,6 +118,7 @@ class SelectRouteActivity : AppCompatActivity() {
 
         val adapter = RouteListViewAdapter(this@SelectRouteActivity, desiredCities)
         listView.adapter = adapter
+
 
     }
 }

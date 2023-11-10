@@ -1,5 +1,6 @@
 package com.example.viajaplus.ui.navbar.home.flows
 
+import android.app.Service
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -13,6 +14,11 @@ import com.example.viajaplus.R
 import com.example.viajaplus.adapters.TicketsListViewAdapter
 import com.example.viajaplus.services.SingletonData
 import com.example.viajaplus.services.TicketsServiceLocal
+import android.app.Activity
+import android.app.ActivityManager
+import android.content.Context
+import android.content.Intent
+import com.example.viajaplus.MainActivity
 
 class ConfirmRoutesSelectedActivity : AppCompatActivity() {
 
@@ -45,8 +51,32 @@ class ConfirmRoutesSelectedActivity : AppCompatActivity() {
 
 
         val listView = findViewById<ListView>(R.id.ListviewTicketsShoppingCart)
-            val adapter = TicketsListViewAdapter(this, SingletonData.ticketsShoppingCart)
-            listView.adapter = adapter
+        val adapter = TicketsListViewAdapter(this, SingletonData.ticketsShoppingCart)
+        listView.adapter = adapter
+
+        val btnConfirmarCompra = findViewById<Button>(R.id.btnComprar)
+        btnConfirmarCompra.setOnClickListener{
+
+            SingletonData.ticketsShoppingCart.forEach { ticket ->
+                TicketsServiceLocal.newTicket(ticket)
+            }
+
+
+            SingletonData.ticketsShoppingCart.clear()
+            Toast.makeText(this, "TICKETS COMPRADOS EXITOSAMENTE", Toast.LENGTH_SHORT).show()
+
+
+
+            // Get the intent to start the new activity.
+            val intent = Intent(this, MainActivity::class.java)
+            // Set the flags to force the new activity to be the top activity.
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            // Start the new activity.
+            startActivity(intent)
+
         }
+
+    }
+
 
 }

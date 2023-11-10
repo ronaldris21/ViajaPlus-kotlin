@@ -24,7 +24,19 @@
     <ListView
         android:id="@+id/ListviewTicketsShoppingCart"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         />
+
+    <Button
+        android:id="@+id/btnComprar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="12dp"
+        android:gravity="center"
+        android:background="@drawable/border"
+        android:layout_marginHorizontal="80dp"
+        android:text="Confirmar Compra"
+        />
+
 
 </LinearLayout>

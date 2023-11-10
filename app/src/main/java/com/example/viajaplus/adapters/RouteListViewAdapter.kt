@@ -13,6 +13,7 @@ import com.example.viajaplus.R
 import com.example.viajaplus.services.SingletonData
 import com.example.viajaplus.models.Route
 import com.example.viajaplus.models.Ticket
+import com.example.viajaplus.services.DatesHelperConverter
 import com.example.viajaplus.ui.navbar.home.flows.ConfirmRoutesSelectedActivity
 import com.example.viajaplus.ui.navbar.home.flows.SelectRouteActivity
 import java.util.UUID
@@ -54,14 +55,18 @@ class RouteListViewAdapter(private val context: Context, private val routes: Lis
         holder.priceTextView.text = "Precio de venta es €" + route.price.toString()
 
         holder.btnComprar.setOnClickListener {
-            //TODO: poner ID DEL USUARIO
-            //TODO: poner fecha de viaje
             //TODO: ASIGNAR TicketID
+            var travelDate = if (SingletonData.startCity == route.originCity) {
+                SingletonData.firstDate  // Si startCity es igual a originCity, utiliza firstDate
+            } else {
+                SingletonData.secondDate  // Si no, utiliza EndDate
+            }
+
             val ticket = Ticket(
                 ticketId = UUID.randomUUID().toString(),
-                userId = "USUARIO ID", // Usar el usuario proporcionado al construir el adaptador
+                userId = SingletonData.userId.toString(), // Usar el usuario proporcionado al construir el adaptador
                 purchaseDate = System.currentTimeMillis(), // Fecha actual en milisegundos
-                travelDate = SingletonData.firstDate, // TODO: Validar si es la primera o segunda fecha
+                travelDate = travelDate,
                 originCity = route.originCity,
                 destinationCity = route.destinationCity,
                 departureTime = route.departureTime,
@@ -79,6 +84,7 @@ class RouteListViewAdapter(private val context: Context, private val routes: Lis
                 val intent = Intent(context, SelectRouteActivity::class.java)
                 intent.putExtra("startCity", SingletonData.endCity)
                 intent.putExtra("endCity",SingletonData.startCity)
+                intent.putExtra("dateShow",DatesHelperConverter.longToStringDate(SingletonData.secondDate))
                 this@RouteListViewAdapter.context.startActivity(intent)
             }
             else
@@ -88,14 +94,6 @@ class RouteListViewAdapter(private val context: Context, private val routes: Lis
                 this@RouteListViewAdapter.context.startActivity(intent)
 
             }
-
-
-            // Mostrar un Toast para indicar que se ha comprado el boleto
-
-            //TODO: Validar si es round trip que ya ha comprado AMBOS!
-            //TODO: si no es round trip o ya ha comprado los dos boletos mandar a validar que si esos soo los dos tickets que quiere
-
-
         }
 
         return view
