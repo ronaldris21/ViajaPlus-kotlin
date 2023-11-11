@@ -75,9 +75,12 @@
             android:textSize="16sp" />
 
         <Spinner
+            tools:listitem=""
             android:id="@+id/spinnerStartCity"
             android:layout_width="match_parent"
             android:layout_height="48dp"
+            android:layout_margin="8dp"
+            style="@style/SpinnerItemStyle"
             android:outlineAmbientShadowColor="@color/white"
             android:outlineSpotShadowColor="@color/white"
             app:layout_constraintBottom_toTopOf="@+id/imageView"
@@ -91,6 +94,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-medium"
+            android:layout_margin="8dp"
+            android:layout_marginTop="16dp"
             android:text="Ciudad de destino"
             android:textColor="@color/white"
             android:textSize="16sp" />
@@ -98,6 +103,9 @@
         <Spinner
             android:id="@+id/spinnerEndCity"
             android:layout_width="match_parent"
+            style="@style/SpinnerItemStyle"
+            android:layout_margin="8dp"
+            android:layout_marginBottom="16dp"
             android:layout_height="48dp"
             android:outlineAmbientShadowColor="@color/white"
             android:outlineSpotShadowColor="@color/white"
@@ -121,10 +129,11 @@
                 android:layout_gravity="center_vertical"
                 android:paddingStart="8dp"
                 android:paddingEnd="8dp"
+                android:buttonTint="#FFF"
                 android:text="Añadir vuelta?" />
 
             <Button
-                android:layout_width="0dp"
+                android:layout_width="140dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Buscar fechas"

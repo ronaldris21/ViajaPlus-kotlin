@@ -21,7 +21,7 @@ class WhiteTextSpinnerAdapter(
 
     override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
         val view = super.getDropDownView(position, convertView, parent)
-        (view as TextView).setTextColor(ContextCompat.getColor(context, android.R.color.black))
+        //Ya no lo uso, ahora hace uso del style theme llamado "SpinnerItemStyle"
         return view
     }
 }

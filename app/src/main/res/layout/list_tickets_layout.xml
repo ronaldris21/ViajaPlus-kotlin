@@ -37,10 +37,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
+                android:textColor="@color/customBlack"
                 android:textSize="20dp"
                 android:text="10pm" />
             <TextView
                 android:id="@+id/startCityTextView"
+                android:textColor="@color/customBlack"
                 android:layout_width="wrap_content"
                 android:textSize="16dp"
                 android:layout_height="wrap_content"
@@ -50,7 +52,7 @@
         </LinearLayout>
         <TextView
             android:id="@+id/flecha"
-            android:textColor="@color/purple_700"
+            android:textColor="@color/customBlack"
             android:layout_width="wrap_content"
             android:layout_gravity="center"
             android:textStyle="bold"
@@ -72,10 +74,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
+                android:textColor="@color/customBlack"
                 android:textSize="20dp"
                 android:text="4 am" />
             <TextView
                 android:id="@+id/endCityTextView"
+                android:textColor="@color/customBlack"
                 android:layout_width="wrap_content"
                 android:textSize="16dp"
                 android:layout_height="wrap_content"

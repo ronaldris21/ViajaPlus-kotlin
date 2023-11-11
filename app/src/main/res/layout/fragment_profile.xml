@@ -135,7 +135,7 @@
         android:layout_height="27dp"
         android:layout_marginTop="20dp"
         android:checked="true"
-        android:textColor="@color/secondary_dark"
+        android:textColor="@color/alwaysBlack"
         android:text="Modo Claro"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
