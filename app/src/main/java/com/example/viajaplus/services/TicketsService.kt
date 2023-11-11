@@ -30,7 +30,6 @@ object TicketsService {
     }
 
     suspend fun getTickets(): MutableList<Ticket> {
-        //TODO: from Firebase
         val db = Firebase.firestore
         tickets = mutableListOf<Ticket>()
         Log.e("getTickets","getTickets  INIT")
@@ -40,8 +39,6 @@ object TicketsService {
             .await()
             .forEach { document ->
                 Log.d(ContentValues.TAG, "Tickets: ${document.id} => ${document.data}")
-                //TODO: llenar los datos del ticket
-                // Llenamos los datos del ticket
 
                 var userid = document.data["userId"] as String
                 if(userid == SingletonData.userId)
