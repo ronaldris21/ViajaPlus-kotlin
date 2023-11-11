@@ -61,22 +61,12 @@
         android:textColorHint="@color/white" />
 
 
-    <TextView
-        android:id="@+id/info"
-        android:layout_width="154dp"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/signupbtn"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="140dp"
-        android:layout_marginEnd="110dp"
-        android:layout_marginBottom="10dp"
-        android:text="Or sign up with" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/info"
+        android:layout_below="@+id/password"
+        android:layout_marginTop="102dp"
         android:layout_marginBottom="50dp"
         android:orientation="horizontal">
 
@@ -116,20 +106,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="0dp"
-        android:gravity="center">
-
-        <ImageView
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_margin="20dp"
-            android:src="@drawable/google" />
-
-        <ImageView
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_margin="20dp"
-            android:src="@drawable/fb" />
-    </LinearLayout>
+        android:gravity="center"/>
 
 
 
