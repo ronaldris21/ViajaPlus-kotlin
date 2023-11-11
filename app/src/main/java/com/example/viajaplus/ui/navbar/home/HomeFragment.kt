@@ -63,7 +63,6 @@ class HomeFragment : Fragment() {
             // Acceder a las propiedades del binding de manera segura
             val spinnerStart: Spinner = _binding!!.spinnerStartCity
             val spinnerEnd: Spinner = _binding!!.spinnerEndCity
-
             //CIUDADES DE INICIO
             val routes = RoutesService.getRoutes()
             val uniqueCities = routes.distinctBy { it.originCity}.map { it.originCity }

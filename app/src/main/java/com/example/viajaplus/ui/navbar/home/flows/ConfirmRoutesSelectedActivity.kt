@@ -1,22 +1,16 @@
 package com.example.viajaplus.ui.navbar.home.flows
 
-import android.app.Service
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.Button
 import android.widget.ListView
 import android.widget.Toast
 import com.example.viajaplus.R
 import com.example.viajaplus.adapters.TicketsListViewAdapter
 import com.example.viajaplus.services.SingletonData
-import com.example.viajaplus.services.TicketsServiceLocal
-import android.app.Activity
-import android.app.ActivityManager
-import android.content.Context
+import com.example.viajaplus.services.TicketsService
 import android.content.Intent
 import android.widget.TextView
 import com.example.viajaplus.MainActivity
@@ -61,7 +55,7 @@ class ConfirmRoutesSelectedActivity : AppCompatActivity() {
         btnConfirmarCompra.setOnClickListener{
 
             SingletonData.ticketsShoppingCart.forEach { ticket ->
-                TicketsServiceLocal.newTicket(ticket)
+                TicketsService.newTicket(ticket)
             }
 
 

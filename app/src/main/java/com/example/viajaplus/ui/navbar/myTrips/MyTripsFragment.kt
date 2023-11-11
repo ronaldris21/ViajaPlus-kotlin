@@ -1,20 +1,17 @@
 package com.example.viajaplus.ui.navbar.myTrips
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.viajaplus.databinding.FragmentMyTripsBinding
-import com.example.viajaplus.services.TicketsServiceLocal
+import com.example.viajaplus.services.TicketsService
 import com.example.viajaplus.adapters.TicketsListViewAdapter
-import com.example.viajaplus.models.Ticket
+import com.example.viajaplus.adapters.TicketsQRListViewAdapter
 import com.google.android.material.tabs.TabLayout
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 class MyTripsFragment : Fragment() {
@@ -56,8 +53,10 @@ class MyTripsFragment : Fragment() {
             }
         })
 
+        Toast.makeText(requireContext(), "Cargando tus tickets", Toast.LENGTH_SHORT).show()
+
         runBlocking {
-            TicketsServiceLocal.getTickets()
+            TicketsService.getTickets()
         }
 
 
@@ -68,19 +67,19 @@ class MyTripsFragment : Fragment() {
 
 
     fun showUpcomingTickets() {
-        var ticketsMostrar = TicketsServiceLocal.tickets
+        var ticketsMostrar = TicketsService.tickets
 
         // Actualizar la vista en una coroutine
             val upcomingTickets = ticketsMostrar.filter { it.travelDate >= System.currentTimeMillis() }.toMutableList()
 
             val listView = binding.ListviewUpcomingTickets
 
-            val adapter = TicketsListViewAdapter(requireContext(), upcomingTickets)
+            val adapter = TicketsQRListViewAdapter(requireContext(), upcomingTickets)
             listView.adapter = adapter
     }
     private fun showOldTickets() {
         // Obtener los tickets de manera asíncrona
-        var ticketsMostrar = TicketsServiceLocal.tickets
+        var ticketsMostrar = TicketsService.tickets
         val oldTickets = ticketsMostrar.filter { it.travelDate < System.currentTimeMillis() }.toMutableList()
 
         val listView = binding.ListviewUpcomingTickets

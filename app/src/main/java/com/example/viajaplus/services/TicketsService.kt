@@ -2,16 +2,13 @@ package com.example.viajaplus.services
 
 import android.content.ContentValues
 import android.util.Log
-import android.widget.Toast
 import com.example.viajaplus.models.Ticket
-import com.example.viajaplus.models.User
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.tasks.await
 import java.time.LocalTime
-import java.util.UUID
 
-object TicketsServiceLocal {
+object TicketsService {
 
     var tickets = mutableListOf<Ticket>()
 

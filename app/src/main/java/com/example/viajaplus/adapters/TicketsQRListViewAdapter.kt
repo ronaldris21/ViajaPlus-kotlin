@@ -15,7 +15,7 @@ import com.example.viajaplus.services.SingletonData
 import com.example.viajaplus.ui.navbar.home.flows.ConfirmRoutesSelectedActivity
 import com.example.viajaplus.ui.navbar.myTrips.flows.TicketsQrActivity
 
-class TicketsListViewAdapter(private val context: Context, private val routes: List<Ticket>) : BaseAdapter() {
+class TicketsQRListViewAdapter(private val context: Context, private val routes: List<Ticket>) : BaseAdapter() {
 
     override fun getCount(): Int {
         return routes.size
@@ -34,7 +34,7 @@ class TicketsListViewAdapter(private val context: Context, private val routes: L
         val holder: ViewHolder
 
         if (convertView == null) {
-            view = LayoutInflater.from(context).inflate(R.layout.list_tickets_layout, parent, false)
+            view = LayoutInflater.from(context).inflate(R.layout.list_tickets_qr_layout, parent, false)
             holder = ViewHolder(view)
             view.tag = holder
         } else {
@@ -52,6 +52,13 @@ class TicketsListViewAdapter(private val context: Context, private val routes: L
         holder.priceTextView.text = "Precio de venta es €" + ticket.price.toString()
         holder.txtFecha.text = "Fecha de viaje: "+ DatesHelperConverter.longToStringDate(ticket.travelDate)
 
+        holder.btnVerQr.setOnClickListener {
+
+            SingletonData.ticketQr = ticket
+            val intent = Intent(context, TicketsQrActivity::class.java)
+            this@TicketsQRListViewAdapter.context.startActivity(intent)
+
+        }
 
         return view
     }
@@ -63,6 +70,7 @@ class TicketsListViewAdapter(private val context: Context, private val routes: L
         val startHourTextView: TextView = view.findViewById(R.id.startHour)
         val endHourTextView: TextView = view.findViewById(R.id.endHour)
         val priceTextView: TextView = view.findViewById(R.id.priceTextView)
+        val btnVerQr: TextView = view.findViewById(R.id.btnComprar)
         val txtFecha: TextView = view.findViewById(R.id.dateTravel)
     }
 }
