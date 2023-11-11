@@ -55,7 +55,7 @@ class RouteListViewAdapter(private val context: Context, private val routes: Lis
         holder.priceTextView.text = "Precio de venta es €" + route.price.toString()
 
         holder.btnComprar.setOnClickListener {
-            //TODO: ASIGNAR TicketID
+            //ASIGNAR TicketID
             var travelDate = if (SingletonData.startCity == route.originCity) {
                 SingletonData.firstDate  // Si startCity es igual a originCity, utiliza firstDate
             } else {

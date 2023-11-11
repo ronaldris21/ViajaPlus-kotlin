@@ -85,18 +85,9 @@ class ProfileFragment : Fragment() {
             val intent = Intent(requireActivity(), LoginActivity::class.java)
             this@ProfileFragment.startActivity(intent)
         }
-        //TODO: cambiar tema por ejemplo
-        //TODO: Documentaicón 2 puntos
-        // vistas obligatorias 3.5
-        // db 1.5
-        // no errores 1 puntos, valudaciones
         //Originalidad diseño
         //Puntos extras
 
-
-
-        // TODO: Notification text ese?¿
-        // Tema?
         updateView()
 
 
@@ -179,7 +170,7 @@ class ProfileFragment : Fragment() {
                         if (urlPattern.matcher(user?.profilePictureUrl).matches()) {
                             Glide.with(this).load(user.profilePictureUrl).override(ancho, alto).into(binding.profileImage)
                         } else{
-                            //TODO: Establece una imagen por defecto
+                            // Establece una imagen por defecto
                             Toast.makeText(this.context, "Importa una foto!", Toast.LENGTH_SHORT).show()
                             val defaultImage = "https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
                             Glide.with(this).load(defaultImage).override(ancho, alto).into(binding.profileImage)
