@@ -11,6 +11,7 @@ import android.widget.Toast
 import com.example.viajaplus.R
 import com.example.viajaplus.models.Ticket
 import com.example.viajaplus.services.DatesHelperConverter
+import com.example.viajaplus.services.SingletonData
 import com.example.viajaplus.ui.navbar.home.flows.ConfirmRoutesSelectedActivity
 import com.example.viajaplus.ui.navbar.myTrips.flows.TicketsQrActivity
 
@@ -53,6 +54,7 @@ class TicketsListViewAdapter(private val context: Context, private val routes: L
 
         holder.btnVerQr.setOnClickListener {
 
+            SingletonData.ticketQr = ticket
             val intent = Intent(context, TicketsQrActivity::class.java)
             this@TicketsListViewAdapter.context.startActivity(intent)
 

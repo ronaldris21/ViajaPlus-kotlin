@@ -32,6 +32,8 @@ object SingletonData {
     public var startCity: String = ""
     public var endCity: String = ""
 
+    //TICKET Mostrar QR
+    public var ticketQr : Ticket? = null
 
 
     ///LOGIN y Guardar el ID del registrado
