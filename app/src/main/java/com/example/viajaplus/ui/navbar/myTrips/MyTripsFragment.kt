@@ -84,7 +84,7 @@ class MyTripsFragment : Fragment() {
 
         val listView = binding.ListviewUpcomingTickets
 
-        val adapter = TicketsListViewAdapter(requireContext(), oldTickets)
+        val adapter = TicketsQRListViewAdapter(requireContext(), oldTickets)
         listView.adapter = adapter
     }
 
